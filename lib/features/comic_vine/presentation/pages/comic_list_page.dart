@@ -73,10 +73,11 @@ class ComicListPage extends StatelessWidget {
                           final ComicModel comic = state.comics[index];
                           // Reuse the ComicTile widget to display individual comics
                           return ComicTile(
+                            id: comic.id,
                             imageUrl: comic.imageUrl,
-                            title: comic.title,
-                            issueNumber: comic.id.toString(), // Assuming the ID represents the issue number
-                            releaseDate: DateTime.now(), // Replace with the actual release date
+                            title: comic.name,
+                            issueNumber: comic.issueNumber, // Assuming the ID represents the issue number
+                            releaseDate: DateTime.parse(comic.coverDate), // Replace with the actual release date
                           );
                         },
                         childCount: state.comics.length, // Number of comics to display

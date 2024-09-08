@@ -27,7 +27,7 @@ class SizeConfig implements ISizeConfig {
   }
 
   @override
-  double getImageSize(double factor) {
+  double getWidthSize(double factor) {
     // Return image size based on screen width factor
     return blockSizeHorizontal * factor;
   }

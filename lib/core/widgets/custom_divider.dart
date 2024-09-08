@@ -9,14 +9,16 @@ class CustomDivider extends StatelessWidget {
 
   final EdgeInsetsGeometry? padding;  // Optional padding, nullable
 
-  CustomDivider({super.key, this.padding});  // Constructor with optional padding
+  final double opacity;  // Opacity value for the divider color
+
+  CustomDivider({super.key, this.padding, this.opacity = 0.3});  // Constructor with optional padding
 
   @override
   Widget build(BuildContext context) {
     Widget divider = Divider(
-      color: themeConfig.getSubtitleSectionColor().withOpacity(0.3),  // Custom color with opacity
+      color: themeConfig.getSubtitleSectionColor().withOpacity(opacity),  // Custom color with opacity
       height: 3,
-      thickness: 2,  // Custom thickness
+      thickness: 1.5,  // Custom thickness
     );
 
     // Apply padding only if provided, otherwise return the divider without padding
