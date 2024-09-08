@@ -1,4 +1,5 @@
 import 'package:comic_vine_app/core/contracts/i_size_config.dart';
+import 'package:comic_vine_app/core/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:comic_vine_app/core/widgets/custom_divider.dart';
 import 'package:comic_vine_app/features/comic_vine/data/models/comic_model.dart';
@@ -35,7 +36,9 @@ class ComicListPage extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is ComicError) {
                 // Show an error message if something goes wrong
-                return Center(child: Text('Error: ${state.message}'));
+                return CustomErrorWidget(
+                  errorMessage: state.message,
+                );
               } else if (state is ComicLoaded) {
                 // Display the comics list once the data is loaded
                 return CustomScrollView(

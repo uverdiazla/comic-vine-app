@@ -1,4 +1,5 @@
 {
   "latest_issues": "Latest Issues",
-  "not_comics_available": "No comics available"
+  "not_comics_available": "No comics available",
+  "error_loading_data": "Error loading data"
 }

@@ -1,5 +1,6 @@
 import 'package:comic_vine_app/core/contracts/i_theme_config.dart';
 import 'package:comic_vine_app/core/theme/app_theme.dart';
+import 'package:comic_vine_app/core/widgets/error_widget.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/widgets/comic_detail/comic_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,9 @@ class ComicDetailPage extends StatelessWidget {
             if (state is ComicLoading) {
               return const Center(child: CircularProgressIndicator());  // Loading indicator
             } else if (state is ComicError) {
-              return const Center(child: Text('Error loading comic details'));  // Error message
+              return CustomErrorWidget(
+                errorMessage: state.message,
+              );  // Error message
             } else if (state is ComicLoaded) {
               // If the comic is not found, return a default ComicModel instance
               final comic = state.comics.firstWhere(

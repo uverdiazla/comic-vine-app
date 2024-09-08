@@ -11,4 +11,5 @@ abstract class IThemeConfig {
   Color getTitleSectionColor();
   Color getSubtitleSectionColor();
   Color getDefaultTextColor();
+  Color getConfigErrorColor();
 }
