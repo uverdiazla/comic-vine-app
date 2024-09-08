@@ -1,39 +1,31 @@
-/// ComicModel represents the data structure of a comic in the domain layer.
-/// It handles null values gracefully and provides default values where needed.
-class ComicModel {
-  final int id;
-  final String name;
-  final String issueNumber;
-  final String coverDate;
-  final String description;
-  final String imageUrl;
-  final int volumeId;
-  final String volumeName;
+import 'package:comic_vine_app/features/comic_vine/domain/entities/comic_entity.dart';
 
-  /// Constructor to create a ComicModel instance.
+/// ComicModel represents the data structure of a comic, specifically for handling JSON parsing
+/// and other data-related tasks. It extends the basic domain ComicEntity.
+class ComicModel extends ComicEntity {
+
   ComicModel({
-    required this.id,
-    required this.name,
-    required this.issueNumber,
-    required this.coverDate,
-    required this.description,
-    required this.imageUrl,
-    required this.volumeId,
-    required this.volumeName,
+    required super.id,
+    required super.name,
+    required super.issueNumber,
+    required super.coverDate,
+    required super.description,
+    required super.imageUrl,
+    required super.volumeId,
+    required super.volumeName,
   });
 
-  /// Factory constructor to parse JSON data and handle null values.
-  /// It provides default values like 'Unknown' for strings and 'No description available' for description field.
+  /// Factory constructor to parse JSON data and map it to a ComicEntity.
   factory ComicModel.fromJson(Map<String, dynamic> json) {
     return ComicModel(
-      id: json['id'] ?? 0,  // Default to 0 if null
-      name: json['volume']['name'] ?? '',  // Default to 'Unknown' if null
-      issueNumber: json['issue_number'] ?? '',  // Handle possible nulls
-      coverDate: json['cover_date'] ?? '',  // Handle nulls
-      description: json['description'] ?? '',  // Provide default description if null
-      imageUrl: json['image_urls']?['large_url'] ?? '',  // Handle possible null in nested field
-      volumeId: json['volume']?['id'] ?? 0,  // Handle nulls in nested field
-      volumeName: json['volume']?['name'] ?? '',  // Handle nulls in nested field
+      id: json['id'] ?? 0,
+      name: json['volume']['name'] ?? '',
+      issueNumber: json['issue_number'] ?? '',
+      coverDate: json['cover_date'] ?? '',
+      description: json['description'] ?? '',
+      imageUrl: json['image_urls']?['large_url'] ?? '',
+      volumeId: json['volume']?['id'] ?? 0,
+      volumeName: json['volume']?['name'] ?? '',
     );
   }
 }
