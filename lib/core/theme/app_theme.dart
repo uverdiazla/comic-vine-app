@@ -6,12 +6,12 @@ import 'package:comic_vine_app/core/contracts/i_theme_config.dart';
 class AppTheme implements IThemeConfig {
   // Define the colors used across the app
   static const Color _primaryColor = Color(0xffefefef);
-  static const Color _secondaryBackgroundColor = Color(0xFF646464);    // Creator text color
+  static const Color _secondaryBackgroundColor = Color(0xFF646464);
   static const Color _appBarColor = Color(0xFF232828);
   static const Color _accentColor = Colors.orange;
-  static const Color _titleSection = Color(0xff23854f);      // Title color
-  static const Color _subtitleSection = Color(0xFF8E8E8E);   // Subtitle color
-  static const Color _defaultTextColor = Color(0xFF121212); // Default text color
+  static const Color _titleSection = Color(0xff23854f);
+  static const Color _subtitleSection = Color(0xFF8E8E8E);
+  static const Color _defaultTextColor = Color(0xFF121212);
 
   @override
   ThemeData getTheme() {
@@ -26,7 +26,9 @@ class AppTheme implements IThemeConfig {
         backgroundColor: _accentColor,
       ),
       textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: Colors.white),
+        bodyLarge: TextStyle(color: Colors.black87, fontSize: 22, fontWeight: FontWeight.w900,),
+        bodyMedium: TextStyle(color: _titleSection, fontSize: 14, fontWeight: FontWeight.bold),
+        bodySmall: TextStyle(color: _subtitleSection, fontSize: 12, fontWeight: FontWeight.normal),
       ),
     );
   }

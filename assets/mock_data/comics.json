@@ -1,20 +1,48 @@
 [
   {
-    "id": 1,
-    "title": "The Amazing Spider-Man",
-    "description": "Spider-Man faces off against a new villain in New York City.",
-    "imageUrl": "https://www.shutterstock.com/image-vector/spiderman-suit-icon-logo-super-600w-2407844867.jpg"
+    "id": 6,
+    "name": "The Lost Race",
+    "issue_number": "13",
+    "cover_date": "1952-10-01",
+    "description": "The horrors of: Lost race! The man germ! Man in the hood! The things! - Stories behind the stars, featuring the legendary battle between Hercules, Hydra and Iolaus! Plus, two page long prose-stories.",
+    "image_urls": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/5/58993/2645776-chamber_of_chills__13_cgc_8.5.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/5/58993/2645776-chamber_of_chills__13_cgc_8.5.jpg",
+      "large_url": "https://comicvine.gamespot.com/a/uploads/scale_large/5/58993/2645776-chamber_of_chills__13_cgc_8.5.jpg"
+    },
+    "volume": {
+      "id": 1487,
+      "name": "Chamber of Chills Magazine Fighting Fronts!"
+    }
   },
   {
-    "id": 2,
-    "title": "Batman: The Dark Knight",
-    "description": "Batman defends Gotham City from the Joker.",
-    "imageUrl": "https://clipart-library.com/images/6ir5kn5KT.jpg"
+    "id": 7,
+    "issue_number": "3",
+    "cover_date": "1952-10-01",
+    "description": "A vivid portrayal of heroic battles and strategies on fighting fronts.",
+    "image_urls": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/4/8-1488-7-1-fighting-fronts-.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/4/8-1488-7-1-fighting-fronts-.jpg",
+      "large_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/4/8-1488-7-1-fighting-fronts-.jpg"
+    },
+    "volume": {
+      "id": 1488,
+      "name": "Avengers Academy: Marvel's Voices Infinity Comic"
+    }
   },
   {
-    "id": 3,
-    "title": "Wonder Woman",
-    "description": "Wonder Woman embarks on a journey to save the world.",
-    "imageUrl": "https://phantom-elmundo.unidadeditorial.es/da917d1f31da6146e8a19d2959aae11c/crop/191x0/1809x1078/resize/1200/f/webp/assets/multimedia/imagenes/2020/12/16/16081419327409.jpg"
+    "id": 8,
+    "issue_number": "5",
+    "cover_date": "1952-10-31",
+    "description": "Terrifying tales of horror and suspense await those who dare to enter the Tomb of Terror.",
+    "image_urls": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/4/9-1489-8-1-tomb-of-terror.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/4/9-1489-8-1-tomb-of-terror.jpg",
+      "large_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/4/9-1489-8-1-tomb-of-terror.jpg"
+    },
+    "volume": {
+      "id": 1489,
+      "name": "Tomb of Terror"
+    }
   }
 ]

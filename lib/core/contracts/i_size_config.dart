@@ -5,6 +5,6 @@ import 'package:flutter/material.dart';
 abstract class ISizeConfig {
   void init(BuildContext context);
   double getTextSize(double factor);
-  double getImageSize(double factor);
+  double getWidthSize(double factor);
   double getHeightSize(double factor);
 }
