@@ -1,4 +1,4 @@
-package com.example.code
+package com.example.comicvineapp
 
 import io.flutter.embedding.android.FlutterActivity
 
