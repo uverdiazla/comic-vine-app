@@ -1,5 +1,5 @@
+import 'package:comic_vine_app/core/contracts/i_theme_config.dart';
 import 'package:flutter/material.dart';
-import 'package:comic_vine_app/core/theme/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
@@ -13,7 +13,8 @@ class CustomErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Obtain the theme configuration
-    final themeConfig = GetIt.I<AppTheme>();
+    final themeConfig = GetIt.I<IThemeConfig>();
+
 
     return Center(
       child: Padding(

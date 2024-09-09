@@ -1,4 +1,5 @@
 import 'package:comic_vine_app/core/contracts/i_size_config.dart';
+import 'package:comic_vine_app/core/widgets/dot_loading_indicator.dart';
 import 'package:comic_vine_app/core/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:comic_vine_app/core/widgets/custom_divider.dart';
@@ -32,8 +33,7 @@ class ComicListPage extends StatelessWidget {
             builder: (context, state) {
               // Handling the different states of ComicBloc
               if (state is ComicLoading) {
-                // Show a loading spinner when fetching comics
-                return const Center(child: CircularProgressIndicator());
+                return const DotLoadingIndicator();
               } else if (state is ComicError) {
                 // Show an error message if something goes wrong
                 return CustomErrorWidget(

@@ -20,4 +20,10 @@ class ComicRepositoryMock implements ComicRepository {
       return [];
     }
   }
+
+  @override
+  Future<ComicModel> fetchComicDetail(int id) {
+    // Not implemented for mock data
+    throw UnimplementedError();
+  }
 }

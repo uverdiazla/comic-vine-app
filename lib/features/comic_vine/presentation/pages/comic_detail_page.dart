@@ -1,64 +1,56 @@
 import 'package:comic_vine_app/core/contracts/i_theme_config.dart';
 import 'package:comic_vine_app/core/theme/app_theme.dart';
+import 'package:comic_vine_app/core/widgets/dot_loading_indicator.dart';
 import 'package:comic_vine_app/core/widgets/error_widget.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/widgets/comic_detail/comic_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/blocs/comic/comic_bloc.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/blocs/comic/comic_state.dart';
-import 'package:comic_vine_app/features/comic_vine/data/models/comic_model.dart';
 import 'package:get_it/get_it.dart';
 
+/// Widget that represents the comic detail page.
+/// This page will show the detailed information of a specific comic by its ID.
+/// It reacts to the states of the ComicBloc to manage loading, error, and data.
 class ComicDetailPage extends StatelessWidget {
-  final int comicId;
+  final int comicId;  // ID of the comic to be displayed
 
   const ComicDetailPage({super.key, required this.comicId});
 
   @override
   Widget build(BuildContext context) {
-
+    // Access the theme configuration via dependency injection
     final themeConfig = GetIt.I<IThemeConfig>() as AppTheme;
 
-
     return Scaffold(
-      backgroundColor: themeConfig.getPrimaryColor(),
+      backgroundColor: themeConfig.getPrimaryColor(),  // Set the background color from the theme
       body: SafeArea(
         child: BlocBuilder<ComicBloc, ComicState>(
           builder: (context, state) {
             if (state is ComicLoading) {
-              return const Center(child: CircularProgressIndicator());  // Loading indicator
+              // Display loading spinner while fetching comic details
+              return const DotLoadingIndicator();
             } else if (state is ComicError) {
+              // Display error message if there is an error in fetching data
               return CustomErrorWidget(
-                errorMessage: state.message,
-              );  // Error message
-            } else if (state is ComicLoaded) {
-              // If the comic is not found, return a default ComicModel instance
-              final comic = state.comics.firstWhere(
-                    (c) => c.id == comicId,
-                orElse: () => ComicModel(
-                  id: 0,
-                  name: 'Unknown Comic',
-                  issueNumber: 'N/A',
-                  coverDate: 'Unknown Date',
-                  description: 'No description available',
-                  imageUrl: 'https://default-image-url.com',  // Default image
-                  volumeId: 0,
-                  volumeName: 'Unknown Volume',
-                ),
+                errorMessage: state.message,  // Show the error message from the state
               );
+            } else if (state is ComicDetailLoaded ) {
+              // Find the comic by its ID or show a default comic if not found
+              final comic = state.comic;
 
+              // Display the comic details in a scrollable view
               return SingleChildScrollView(
                 child: ComicDetailCard(
-                  imageUrl: comic.imageUrl,
-                  title: comic.name,
-                  issueNumber: comic.issueNumber,
-                  description: comic.description,
+                  comic: comic,
                 ),
               );
             }
 
-            // Default message if no comics are available
-            return const Center(child: Text('No comic details available'));
+            // Default fallback message if no comic details are available
+            return const CustomErrorWidget(
+              errorMessage: 'No comic details available',
+            );
           },
         ),
       ),

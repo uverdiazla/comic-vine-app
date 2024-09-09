@@ -1,5 +1,5 @@
 import 'package:comic_vine_app/core/widgets/custom_divider.dart';
-import 'package:comic_vine_app/features/comic_vine/data/models/info_item_model.dart';
+import 'package:comic_vine_app/features/comic_vine/domain/entities/info_item.dart';
 import 'package:flutter/material.dart';
 
 /// A reusable widget that displays a section with a title and a list of items.

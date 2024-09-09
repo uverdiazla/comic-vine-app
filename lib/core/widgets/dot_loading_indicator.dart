@@ -56,8 +56,8 @@ class _DotLoadingIndicatorState extends State<DotLoadingIndicator> with SingleTi
                 ),
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 8.0),  // Increase spacing between dots
-                  width: 80.0,  // Increased size for larger dots
-                  height: 80.0, // Increased size for larger dots
+                  width: 60.0,  // Increased size for larger dots
+                  height: 60.0, // Increased size for larger dots
                   decoration: const BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,      // Circular shape for each dot
