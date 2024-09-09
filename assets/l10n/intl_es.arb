@@ -1,5 +1,10 @@
 {
   "latest_issues": "Últimos números",
   "not_comics_available": "No hay cómics disponibles",
-  "error_loading_data": "Error al cargar los datos"
+  "error_loading_data": "Error al cargar los datos",
+  "creators": "Creadores",
+  "characters": "Personajes",
+  "teams": "Equipos",
+  "locations": "Ubicaciones",
+  "concepts": "Conceptos"
 }

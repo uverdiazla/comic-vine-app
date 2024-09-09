@@ -36,10 +36,10 @@ class AppRoot extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: const [
-            Locale('en', ''), // Inglés
-            Locale('es', ''), // Español
+            Locale('en', ''),
+            Locale('es', ''),
           ],
-          locale: const Locale('en'),  // Idioma por defecto, pero puede cambiar en tiempo de ejecución
+          locale: const Locale('en'),
         );
       },
     );

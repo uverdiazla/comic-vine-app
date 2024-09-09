@@ -4,7 +4,6 @@ import 'package:comic_vine_app/core/contracts/i_theme_config.dart';
 /// Implementation of the app theme configuration.
 /// This sets up primary and accent colors, text styles, etc.
 class AppTheme implements IThemeConfig {
-  // Define the colors used across the app
   static const Color _primaryColor = Color(0xffefefef);
   static const Color _secondaryBackgroundColor = Color(0xFF646464);
   static const Color _appBarColor = Color(0xFF232828);
