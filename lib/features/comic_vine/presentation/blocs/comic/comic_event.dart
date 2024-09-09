@@ -28,3 +28,9 @@ class FetchComicDetail extends ComicEvent {
   @override
   List<Object> get props => [comicId];
 }
+
+class RefreshComicDetail extends ComicEvent {
+  final int comicId;
+
+  const RefreshComicDetail(this.comicId);
+}

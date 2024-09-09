@@ -26,4 +26,10 @@ class ComicRepositoryMock implements ComicRepository {
     // Not implemented for mock data
     throw UnimplementedError();
   }
+
+  @override
+  Future<ComicModel> refreshComicDetail(int id) {
+    // Not implemented for mock data
+    throw UnimplementedError();
+  }
 }

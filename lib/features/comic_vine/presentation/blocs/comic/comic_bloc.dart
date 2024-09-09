@@ -1,3 +1,4 @@
+import 'package:comic_vine_app/core/db/db_helper.dart';
 import 'package:comic_vine_app/features/comic_vine/data/models/comic_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comic_vine_app/core/contracts/i_comic_repository.dart';
@@ -43,17 +44,29 @@ class ComicBloc extends Bloc<ComicEvent, ComicState> {
 
     // Handles the FetchComicDetail event to load details of a specific comic by its ID
     on<FetchComicDetail>((event, emit) async {
-      emit(ComicLoading()); // Emit ComicLoading while fetching the comic details
+      emit(ComicLoading());  // Emit loading state while fetching comic details
       try {
-        // Fetch comic details using the repository
+        // Fetch from the repository (which handles cache and API)
         final comic = await repository.fetchComicDetail(event.comicId);
-
-        // Emit ComicDetailLoaded with the detailed comic data
-        emit(ComicDetailLoaded(comic));
+        emit(ComicDetailLoaded(comic));  // Emit comic details
       } catch (e) {
-        // Emit an error state if the fetching process fails
-        emit(ComicError('Failed to load comic details: $e'));
+        emit(ComicError('Failed to load comic details: $e'));  // Emit error state
       }
     });
+
+// Handles the RefreshComicDetail event to force-refresh comic details from the API
+    on<RefreshComicDetail>((event, emit) async {
+      try {
+        emit(ComicLoading());  // Show loading state while refreshing data
+
+        // Force-refresh data from the repository (which handles the API and cache)
+        final comic = await repository.refreshComicDetail(event.comicId);
+        emit(ComicDetailLoaded(comic));  // Emit refreshed comic details
+      } catch (e) {
+        emit(ComicError('Failed to refresh comic details: $e'));  // Emit error state
+      }
+    });
+
+
   }
 }

@@ -1,4 +1,5 @@
 import 'package:comic_vine_app/core/contracts/i_comic_repository.dart';
+import 'package:comic_vine_app/core/contracts/i_db_helper.dart';
 import 'package:comic_vine_app/features/comic_vine/data/models/comic_model.dart';
 import 'package:comic_vine_app/features/comic_vine/domain/entities/info_item.dart';
 import 'package:get_it/get_it.dart';
@@ -8,10 +9,10 @@ import 'package:xml/xml.dart' as xml;
 
 /// Implementation of ComicRepository that fetches data from the Comic Vine API
 class ComicRepositoryAPI implements ComicRepository {
+  final IDBHelper dbHelper = GetIt.I<IDBHelper>();
   final IAppConfig config = GetIt.I<IAppConfig>();
 
   /// Fetches a list of comics from the Comic Vine API
-  @override
   @override
   Future<List<ComicModel>> fetchComics(int offset) async {
     final String url = '${config.baseUrl}/issues/?api_key=${config.apiKey}&offset=$offset&limit=15';
@@ -47,24 +48,35 @@ class ComicRepositoryAPI implements ComicRepository {
   /// Fetches details of a specific comic by its ID
   @override
   Future<ComicModel> fetchComicDetail(int id) async {
+    // First, try to load comic details from the SQLite cache
+    ComicModel? cachedComic = await dbHelper.getComic(id);
+
+    if (cachedComic != null) {
+      return cachedComic;
+    }
+
+    // If no cached data, fetch from the API and cache the result
+    return await _fetchAndCacheComicFromAPI(id);
+  }
+
+  @override
+  Future<ComicModel> refreshComicDetail(int id) async {
+    // Force-refresh by fetching fresh data from the API
+    return await _fetchAndCacheComicFromAPI(id);
+  }
+
+  Future<ComicModel> _fetchAndCacheComicFromAPI(int id) async {
     final String url = '${config.baseUrl}/issue/4000-$id/?api_key=${config.apiKey}';
 
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
-        // Parse the XML document from the response
+        // Parse the XML document
         final document = xml.XmlDocument.parse(response.body);
-        // Get the first <results> element which contains the issue details
         final results = document.findAllElements('results').first;
-        // Fetch detailed info for characters, concepts, etc.
-        final creators = await _fetchDetailedItems(results, 'person_credits', 'person');
-        final characters = await _fetchDetailedItems(results, 'character_credits', 'character');
-        final teams = await _fetchDetailedItems(results, 'team_credits', 'team');
-        final locations = await _fetchDetailedItems(results, 'location_credits', 'location');
-        final concepts = await _fetchDetailedItems(results, 'concept_credits', 'concept');
 
-        // Return a ComicModel from the parsed XML data
-        return ComicModel(
+        // Extract necessary fields from the API response
+        final comic = ComicModel(
           id: int.parse(results.findElements('id').first.text),
           name: _extractText(results.findElements('volume').first, 'name'),
           issueNumber: _extractText(results, 'issue_number'),
@@ -73,12 +85,17 @@ class ComicRepositoryAPI implements ComicRepository {
           imageUrl: _extractImageURL(results),
           volumeId: int.parse(results.findElements('volume').first.findElements('id').first.text),
           volumeName: _extractText(results.findElements('volume').first, 'name'),
-          creators: creators,
-          characters: characters,
-          teams: teams,
-          locations: locations,
-          concepts: concepts,
+          creators: await _fetchDetailedItems(results, 'person_credits', 'person'),  // Fetch detailed items correctly
+          characters: await _fetchDetailedItems(results, 'character_credits', 'character'),
+          teams: await _fetchDetailedItems(results, 'team_credits', 'team'),
+          locations: await _fetchDetailedItems(results, 'location_credits', 'location'),
+          concepts: await _fetchDetailedItems(results, 'concept_credits', 'concept'),
         );
+
+        // Cache the fresh comic details in SQLite
+        await dbHelper.insertComic(comic);  // Make sure the cache is properly updated
+
+        return comic;
       } else {
         throw Exception('Failed to load comic details');
       }
@@ -86,6 +103,7 @@ class ComicRepositoryAPI implements ComicRepository {
       throw Exception('Error fetching comic details: $e');
     }
   }
+
 
   // Helper function to fetch detailed info from the `api_detail_url` for each item (character, concept, etc.)
   Future<List<InfoItem>> _fetchDetailedItems(xml.XmlElement element, String sectionTag, String itemTag) async {

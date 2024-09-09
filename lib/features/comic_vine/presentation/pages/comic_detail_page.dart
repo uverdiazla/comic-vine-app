@@ -2,6 +2,7 @@ import 'package:comic_vine_app/core/contracts/i_theme_config.dart';
 import 'package:comic_vine_app/core/theme/app_theme.dart';
 import 'package:comic_vine_app/core/widgets/dot_loading_indicator.dart';
 import 'package:comic_vine_app/core/widgets/error_widget.dart';
+import 'package:comic_vine_app/features/comic_vine/presentation/blocs/comic/comic_event.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/widgets/comic_detail/comic_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,9 +41,14 @@ class ComicDetailPage extends StatelessWidget {
               final comic = state.comic;
 
               // Display the comic details in a scrollable view
-              return SingleChildScrollView(
-                child: ComicDetailCard(
-                  comic: comic,
+              return RefreshIndicator(
+                onRefresh: () async {
+                  context.read<ComicBloc>().add(RefreshComicDetail(comic.id));
+                },
+                child: SingleChildScrollView(
+                  child: ComicDetailCard(
+                    comic: comic,
+                  ),
                 ),
               );
             }
