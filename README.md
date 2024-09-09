@@ -35,8 +35,16 @@ The app follows the principles of **Clean Architecture** and is structured into 
 
 ## Screenshots
 
-![Comic List]()
-![Comic Details](path_to_comic_details_image.png)
+### Comic List
+![image](https://github.com/user-attachments/assets/184e626a-7078-4180-93bd-2cbbb1b26403)
+![image](https://github.com/user-attachments/assets/2c763aa6-35c3-45d0-8989-a15fa9ada859)
+
+### Comic Details
+
+![image](https://github.com/user-attachments/assets/1a006296-f32e-47b4-82a0-31790b509358)
+![image](https://github.com/user-attachments/assets/a92fe72c-142e-46ae-8027-e99619afa19f)
+
+
 
 ## How to Set Up and Run the Project
 
@@ -53,22 +61,24 @@ Before setting up the project, ensure you have the following installed:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/yourusername/comic_vine_app.git
+   git clone https://github.com/uverdiazla/comic_vine_app.git
    cd comic_vine_app
 
 2. **Install Flutter Dependencies:** 
 
    Make sure you have Flutter 3.24.0 installed. You can check your Flutter version with:
 
-   ```bash
-    flutter --version
+        flutter --version
+   
+   Before proceeding, verify that your environment is correctly set up with the necessary dependencies by running:
 
-    Once Flutter is set up, install the project dependencies by running:
+       flutter doctor
 
-   ```bash
-   flutter pub get
+   Ensure that there are no errors in the output. If any issues are highlighted, resolve them before continuing. Once flutter doctor gives you a clean bill of health, install the project dependencies by running:
 
-3. **Set up the API Key:**
+       flutter pub get
+
+4. **Set up the API Key:**
 
    The app requires a Comic Vine API key to function. Add your API key to the lib/core/config/app_config.dart file:
 
@@ -77,24 +87,21 @@ Before setting up the project, ensure you have the following installed:
     final String baseUrl = 'https://comicvine.gamespot.com/api';
     final String apiKey = 'YOUR_API_KEY_HERE';  // Add your API key here
     }
-4. **Run the App:**
+5. **Run the App:**
 
    Connect a device/emulator and run the app using the following command:
 
-   ```bash
-   flutter run
+       flutter run
 
    Make sure your device/emulator is connected and detected by Flutter:
 
-   ```bash
-    flutter devices
+        flutter devices
 
 ### Running the Tests:
 
 Unit and Widget Tests
 Unit and widget tests are located in the test/ directory. To run all unit and widget tests, use:
 
-    ```bash
     flutter test
 
 Integration Tests
@@ -102,12 +109,11 @@ The integration tests ensure the app's functionality across multiple screens and
 
 Make sure you have a connected device or emulator running:
 
-    ```bash
     flutter devices
 
 Run the integration tests with:
 
-    ```bash
+    
     flutter test integration_test/app_flow_test.dart
 
 #### Notes for Integration Testing
