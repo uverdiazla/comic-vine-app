@@ -8,7 +8,7 @@ import 'package:comic_vine_app/core/contracts/i_app_config.dart';
 import 'package:xml/xml.dart' as xml;
 
 /// Implementation of ComicRepository that fetches data from the Comic Vine API
-class ComicRepositoryAPI implements ComicRepository {
+class ComicRepositoryAPI implements IComicRepository {
   final IDBHelper dbHelper = GetIt.I<IDBHelper>();
   final IAppConfig config = GetIt.I<IAppConfig>();
 

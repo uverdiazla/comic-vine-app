@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// Implementation of ComicRepository using mock data stored in a JSON file.
-class ComicRepositoryMock implements ComicRepository {
+class ComicRepositoryMock implements IComicRepository {
   @override
   Future<List<ComicModel>> fetchComics(int offset) async {
     try {

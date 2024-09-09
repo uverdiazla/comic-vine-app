@@ -27,7 +27,7 @@ class AppRoutes {
           final id = int.tryParse(state.pathParameters['id'] ?? '0') ?? 0;
 
           return BlocProvider(
-            create: (context) => ComicBloc(GetIt.I<ComicRepository>())..add(FetchComicDetail(id)),
+            create: (context) => ComicBloc(GetIt.I<IComicRepository>())..add(FetchComicDetail(id)),
             child: ComicDetailPage(comicId: id),
           );
         },

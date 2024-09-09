@@ -34,14 +34,14 @@ void setupLocator() {
   // Register the responsive size configuration
   locator.registerLazySingleton<ISizeConfig>(() => SizeConfig());
   // Register the mock repository
-  locator.registerLazySingleton<ComicRepository>(() => ComicRepositoryAPI());
+  locator.registerLazySingleton<IComicRepository>(() => ComicRepositoryAPI());
 
   // Register DBHelper for SQLite operations interface
   locator.registerLazySingleton<IDBHelper>(() => DBHelper());
 
 
   // Register ComicBloc using the injected repository
-  locator.registerFactory(() => ComicBloc(locator<ComicRepository>()));
+  locator.registerFactory(() => ComicBloc(locator<IComicRepository>()));
 
   // Register DateFormatter for date formatting
   locator.registerLazySingleton<IDateFormatter>(() => DateFormatter());
@@ -56,7 +56,7 @@ Future<void> main() async {
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<ComicBloc>(
-        create: (context) => ComicBloc(GetIt.I<ComicRepository>()),
+        create: (context) => ComicBloc(GetIt.I<IComicRepository>()),
       ),
     ],
     child: const AppRoot(),
