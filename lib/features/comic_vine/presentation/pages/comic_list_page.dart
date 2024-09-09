@@ -14,85 +14,111 @@ import 'package:comic_vine_app/core/widgets/comic_tile.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:comic_vine_app/core/theme/app_theme.dart';
 
-class ComicListPage extends StatelessWidget {
+class ComicListPage extends StatefulWidget {
   const ComicListPage({super.key});
 
   @override
+  State<ComicListPage> createState() => _ComicListPageState();
+}
+
+class _ComicListPageState extends State<ComicListPage> {
+  final ScrollController _scrollController = ScrollController();
+  bool _isLoadingMore = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+    context.read<ComicBloc>().add(const FetchComics(page: 1));
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && !_isLoadingMore) {
+      setState(() {
+        _isLoadingMore = true;
+      });
+      context.read<ComicBloc>().add(FetchComics(page: context.read<ComicBloc>().currentPage));
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Access the theme configuration through GetIt
     final themeConfig = GetIt.I<IThemeConfig>() as AppTheme;
     final responsiveConfig = GetIt.I<ISizeConfig>();
 
     return Scaffold(
-      backgroundColor: themeConfig.getPrimaryColor(), // Background color based on the theme
-      body: SafeArea( // Use SafeArea to ensure content does not overlap the status bar
-        child: BlocProvider(
-          // Injecting ComicBloc using GetIt and triggering the FetchComics event
-          create: (_) => GetIt.I<ComicBloc>()..add(FetchComics()),
-          child: BlocBuilder<ComicBloc, ComicState>(
-            builder: (context, state) {
-              // Handling the different states of ComicBloc
-              if (state is ComicLoading) {
-                return const DotLoadingIndicator();
-              } else if (state is ComicError) {
-                // Show an error message if something goes wrong
-                return CustomErrorWidget(
-                  errorMessage: state.message,
-                );
-              } else if (state is ComicLoaded) {
-                // Display the comics list once the data is loaded
-                return CustomScrollView(
-                  slivers: [
-                    // Static "Latest Issues" section at the beginning, visible without scrolling
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: responsiveConfig.getHeightSize(2)),
-                            CustomDivider(),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Text(
-                                AppLocalizations.of(context)!.latest_issues,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: themeConfig.getDefaultTextColor(), // Text color based on theme configuration
-                                ),
+      backgroundColor: themeConfig.getPrimaryColor(),
+      body: SafeArea(
+        child: BlocBuilder<ComicBloc, ComicState>(
+          builder: (context, state) {
+            if (state is ComicLoading && !_isLoadingMore) {
+              return const DotLoadingIndicator();
+            } else if (state is ComicError) {
+              return CustomErrorWidget(errorMessage: state.message);
+            } else if (state is ComicLoaded || state is ComicLoadingMore) {
+              final comics = (state as ComicLoaded).comics;
+              _isLoadingMore = state is ComicLoadingMore;
+
+              return CustomScrollView(
+                controller: _scrollController,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: responsiveConfig.getHeightSize(2)),
+                          CustomDivider(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(
+                              AppLocalizations.of(context)!.latest_issues,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: themeConfig.getDefaultTextColor(),
                               ),
                             ),
-                            CustomDivider(),
-                          ],
-                        ),
+                          ),
+                          CustomDivider(),
+                        ],
                       ),
                     ),
-
-                    // SliverList for displaying the list of comics
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                          final ComicModel comic = state.comics[index];
-                          // Reuse the ComicTile widget to display individual comics
-                          return ComicTile(
-                            id: comic.id,
-                            imageUrl: comic.imageUrl,
-                            title: comic.name,
-                            issueNumber: comic.issueNumber, // Assuming the ID represents the issue number
-                            releaseDate: DateTime.parse(comic.coverDate), // Replace with the actual release date
-                          );
-                        },
-                        childCount: state.comics.length, // Number of comics to display
+                  ),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                        final ComicModel comic = comics[index];
+                        return ComicTile(
+                          id: comic.id,
+                          imageUrl: comic.imageUrl,
+                          title: comic.name,
+                          issueNumber: comic.issueNumber,
+                          releaseDate: DateTime.parse(comic.coverDate),
+                        );
+                      },
+                      childCount: comics.length,
+                    ),
+                  ),
+                  if (_isLoadingMore)
+                    const SliverToBoxAdapter(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 25.0),
+                        child: Center(child: DotLoadingIndicator(size: 20,)),
                       ),
                     ),
-                  ],
-                );
-              }
-              // Default fallback if no comics are available
-              return Center(child: Text(AppLocalizations.of(context)!.not_comics_available));
-            },
-          ),
+                ],
+              );
+            }
+            return Center(child: Text(AppLocalizations.of(context)!.not_comics_available));
+          },
         ),
       ),
     );

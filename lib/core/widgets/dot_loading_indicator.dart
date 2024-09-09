@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 /// often used as a loading indicator. The size of the dots can be adjusted, and
 /// the animation provides a fade-in, fade-out effect.
 class DotLoadingIndicator extends StatefulWidget {
-  const DotLoadingIndicator({super.key});
+  final double size;
+  const DotLoadingIndicator({super.key, this.size = 60.0});
 
   @override
   State<DotLoadingIndicator> createState() => _DotLoadingIndicatorState();
@@ -56,8 +57,8 @@ class _DotLoadingIndicatorState extends State<DotLoadingIndicator> with SingleTi
                 ),
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 8.0),  // Increase spacing between dots
-                  width: 60.0,  // Increased size for larger dots
-                  height: 60.0, // Increased size for larger dots
+                  width: widget.size,  // Increased size for larger dots
+                  height: widget.size, // Increased size for larger dots
                   decoration: const BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,      // Circular shape for each dot

@@ -12,8 +12,9 @@ class ComicRepositoryAPI implements ComicRepository {
 
   /// Fetches a list of comics from the Comic Vine API
   @override
-  Future<List<ComicModel>> fetchComics() async {
-    final String url = '${config.baseUrl}/issues/?api_key=${config.apiKey}';
+  @override
+  Future<List<ComicModel>> fetchComics(int offset) async {
+    final String url = '${config.baseUrl}/issues/?api_key=${config.apiKey}&offset=$offset&limit=15';
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -41,6 +42,7 @@ class ComicRepositoryAPI implements ComicRepository {
       throw Exception('Error fetching comics: $e');
     }
   }
+
 
   /// Fetches details of a specific comic by its ID
   @override
