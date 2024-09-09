@@ -12,6 +12,7 @@ class AppTheme implements IThemeConfig {
   static const Color _titleSection = Color(0xff23854f);
   static const Color _subtitleSection = Color(0xFF8E8E8E);
   static const Color _defaultTextColor = Color(0xFF121212);
+  static const Color _configErrorColor = Color(0xFFD32F2F);
 
   @override
   ThemeData getTheme() {
@@ -65,5 +66,10 @@ class AppTheme implements IThemeConfig {
   @override
   Color getDefaultTextColor() {
     return _defaultTextColor;
+  }
+
+  @override
+  Color getConfigErrorColor() {
+    return _configErrorColor;
   }
 }

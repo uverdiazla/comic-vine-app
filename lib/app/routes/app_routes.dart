@@ -1,7 +1,8 @@
-import 'package:comic_vine_app/features/comic_vine/data/repositories/comic_repository_mock.dart';
+import 'package:comic_vine_app/core/contracts/i_comic_repository.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/blocs/comic/comic_bloc.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/blocs/comic/comic_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/pages/comic_list_page.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/pages/comic_detail_page.dart';
@@ -26,7 +27,7 @@ class AppRoutes {
           final id = int.tryParse(state.pathParameters['id'] ?? '0') ?? 0;
 
           return BlocProvider(
-            create: (context) => ComicBloc(ComicRepositoryMock())..add(FetchComics()),
+            create: (context) => ComicBloc(GetIt.I<ComicRepository>())..add(FetchComicDetail(id)),
             child: ComicDetailPage(comicId: id),
           );
         },

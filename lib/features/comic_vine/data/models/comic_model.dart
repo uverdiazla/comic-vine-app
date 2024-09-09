@@ -13,6 +13,11 @@ class ComicModel extends ComicEntity {
     required super.imageUrl,
     required super.volumeId,
     required super.volumeName,
+    super.creators,
+    super.characters,
+    super.teams,
+    super.locations,
+    super.concepts,
   });
 
   /// Factory constructor to parse JSON data and map it to a ComicEntity.

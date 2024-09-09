@@ -18,6 +18,9 @@ dependencies:
   go_router: ^14.2.0
   intl: any
   get_it: ^7.2.0
+  http: ^1.2.2
+  equatable: ^2.0.3
+  xml: ^5.0.0
 
   cupertino_icons: ^1.0.8
 
