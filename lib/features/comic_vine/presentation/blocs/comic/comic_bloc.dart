@@ -1,4 +1,3 @@
-import 'package:comic_vine_app/core/db/db_helper.dart';
 import 'package:comic_vine_app/features/comic_vine/data/models/comic_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comic_vine_app/core/contracts/i_comic_repository.dart';

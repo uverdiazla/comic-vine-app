@@ -1,5 +1,10 @@
 {
   "latest_issues": "Latest Issues",
   "not_comics_available": "No comics available",
-  "error_loading_data": "Error loading data"
+  "error_loading_data": "Error loading data",
+  "creators": "Creators",
+  "characters": "Characters",
+  "teams": "Teams",
+  "locations": "Locations",
+  "concepts": "Concepts"
 }

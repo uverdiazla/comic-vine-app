@@ -105,7 +105,7 @@ class ComicRepositoryAPI implements ComicRepository {
   }
 
 
-  // Helper function to fetch detailed info from the `api_detail_url` for each item (character, concept, etc.)
+  /// Helper function to fetch detailed info from the `api_detail_url` for each item (character, concept, etc.)
   Future<List<InfoItem>> _fetchDetailedItems(xml.XmlElement element, String sectionTag, String itemTag) async {
     final section = element.findElements(sectionTag).firstOrNull;
     if (section != null) {
@@ -123,7 +123,7 @@ class ComicRepositoryAPI implements ComicRepository {
     return [];
   }
 
-  // Helper function to fetch details from the `api_detail_url`
+  /// Helper function to fetch details from the `api_detail_url`
   Future<InfoItem> _fetchDetailedItem(String url, String role) async {
     try {
       String urlFetch = '$url?api_key=${config.apiKey}';
@@ -164,7 +164,7 @@ class ComicRepositoryAPI implements ComicRepository {
     }
   }
 
-  // Helper to extract InfoItems (creators, characters, etc.)
+  /// Helper to extract InfoItems (creators, characters, etc.)
   List<InfoItem> _extractInfoItems(xml.XmlElement element, String sectionTag, String itemTag) {
     final section = element.findElements(sectionTag).firstOrNull;
     if (section != null) {

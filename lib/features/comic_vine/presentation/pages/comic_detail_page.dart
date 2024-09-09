@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/blocs/comic/comic_bloc.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/blocs/comic/comic_state.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Widget that represents the comic detail page.
 /// This page will show the detailed information of a specific comic by its ID.
@@ -54,8 +55,8 @@ class ComicDetailPage extends StatelessWidget {
             }
 
             // Default fallback message if no comic details are available
-            return const CustomErrorWidget(
-              errorMessage: 'No comic details available',
+            return CustomErrorWidget(
+              errorMessage: AppLocalizations.of(context)!.not_comics_available,
             );
           },
         ),

@@ -29,7 +29,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Ensure we are now on the comic detail page
-      var comicDetailFinder = find.text('Creators');
+      var comicDetailFinder = find.text(AppLocalizations.of(tester.element(find.byType(Scaffold)))!.creators);
       await waitForWidget(tester, comicDetailFinder);
 
       // Simulate going back to the comic list using `pop()`
@@ -51,7 +51,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Ensure we are now on the comic detail page
-      var comicDetailFinderStorage = find.text('Creators');
+      var comicDetailFinderStorage = find.text(AppLocalizations.of(tester.element(find.byType(Scaffold)))!.creators);
       await waitForWidget(tester, comicDetailFinderStorage);
 
       // Simulate pull down to refresh (force reload)

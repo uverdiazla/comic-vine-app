@@ -90,7 +90,7 @@ class InfoSectionList extends StatelessWidget {
               );
             },
           ),
-          SizedBox(height: 30.0)
+          const SizedBox(height: 30.0)
         ],
       ),
     );

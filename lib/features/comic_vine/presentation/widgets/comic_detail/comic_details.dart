@@ -5,6 +5,7 @@ import 'package:comic_vine_app/features/comic_vine/presentation/widgets/comic_de
 import 'package:comic_vine_app/features/comic_vine/presentation/widgets/comic_detail/comic_detail_title.dart';
 import 'package:comic_vine_app/features/comic_vine/presentation/widgets/comic_detail/overlapping_image_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// A reusable widget that displays the detailed view of a comic,
 /// including its image, title, issue number, and description.
@@ -45,31 +46,31 @@ class ComicDetailCard extends StatelessWidget {
 
           // Section displaying the creators of the comic
           InfoSectionList(
-            sectionTitle: 'Creators',
+            sectionTitle: AppLocalizations.of(context)!.creators,
             items: comic.creators ?? [],
           ),
 
           // Section displaying the characters in the comic
           InfoSectionList(
-            sectionTitle: 'Characters',
+            sectionTitle: AppLocalizations.of(context)!.characters,
             items: comic.characters ?? [],
           ),
 
           // Section teams
           InfoSectionList(
-            sectionTitle: 'Teams',
+            sectionTitle: AppLocalizations.of(context)!.teams,
             items: comic.teams ?? [],
           ),
 
           // Section Locations
           InfoSectionList(
-            sectionTitle: 'Locations',
+            sectionTitle: AppLocalizations.of(context)!.locations,
             items: comic.locations ?? [],
           ),
 
           // Section Concepts
           InfoSectionList(
-            sectionTitle: 'Concepts',
+            sectionTitle: AppLocalizations.of(context)!.concepts,
             items: comic.concepts ?? [],
           ),
         ],
