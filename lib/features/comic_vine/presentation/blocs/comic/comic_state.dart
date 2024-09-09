@@ -6,7 +6,7 @@ abstract class ComicState extends Equatable {
   const ComicState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 /// State when comics are being loaded
@@ -41,3 +41,14 @@ class ComicDetailLoaded extends ComicState {
   @override
   List<Object> get props => [comic];
 }
+
+
+/// State when more comics are being loaded
+class ComicLoadingMore extends ComicLoaded {
+  const ComicLoadingMore(super.comics);
+
+  @override
+  List<Object> get props => [comics];
+}
+
+

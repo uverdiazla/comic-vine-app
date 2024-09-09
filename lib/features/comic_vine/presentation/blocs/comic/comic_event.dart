@@ -8,8 +8,16 @@ abstract class ComicEvent extends Equatable {
   List<Object> get props => [];
 }
 
-/// Event to fetch the list of comics
-class FetchComics extends ComicEvent {}
+/// Event to fetch the list of comics, supporting pagination
+class FetchComics extends ComicEvent {
+  final int page;
+
+  const FetchComics({required this.page});
+
+  @override
+  List<Object> get props => [page];
+}
+
 
 /// Event to fetch details of a specific comic by ID
 class FetchComicDetail extends ComicEvent {
