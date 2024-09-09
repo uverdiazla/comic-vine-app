@@ -6,7 +6,7 @@ import 'package:comic_vine_app/features/comic_vine/presentation/blocs/comic/comi
 
 /// Bloc class responsible for managing comic data fetching and state transitions.
 class ComicBloc extends Bloc<ComicEvent, ComicState> {
-  final ComicRepository repository; // Repository to fetch comic data from API or other sources
+  final IComicRepository repository; // Repository to fetch comic data from API or other sources
   int currentPage = 1; // Tracks the current page for pagination, starts from 1
   List<ComicModel> allComics = []; // Accumulates all comics fetched so far
 
