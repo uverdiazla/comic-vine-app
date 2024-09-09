@@ -1,7 +1,9 @@
 import 'package:comic_vine_app/app/config/app_config.dart';
 import 'package:comic_vine_app/core/contracts/i_app_config.dart';
+import 'package:comic_vine_app/core/contracts/i_db_helper.dart';
 import 'package:comic_vine_app/core/contracts/i_size_config.dart';
 import 'package:comic_vine_app/core/contracts/i_text_formatter.dart';
+import 'package:comic_vine_app/core/db/db_helper.dart';
 import 'package:comic_vine_app/core/responsive/size_config.dart';
 import 'package:comic_vine_app/core/utils/html_text_formatter.dart';
 import 'package:comic_vine_app/features/comic_vine/data/repositories/comic_repository_api.dart';
@@ -34,6 +36,10 @@ void setupLocator() {
   // Register the mock repository
   locator.registerLazySingleton<ComicRepository>(() => ComicRepositoryAPI());
 
+  // Register DBHelper for SQLite operations interface
+  locator.registerLazySingleton<IDBHelper>(() => DBHelper());
+
+
   // Register ComicBloc using the injected repository
   locator.registerFactory(() => ComicBloc(locator<ComicRepository>()));
 
@@ -42,9 +48,11 @@ void setupLocator() {
 
 }
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
+  final dbHelper = locator<IDBHelper>();
+  await dbHelper.initDB();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<ComicBloc>(

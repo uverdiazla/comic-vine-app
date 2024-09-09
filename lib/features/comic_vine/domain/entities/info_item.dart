@@ -10,4 +10,22 @@ class InfoItem {
     this.description,
     this.imageUrl,
   });
+
+  /// Convert InfoItem to Map for database storage
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'description': description,
+      'imageUrl': imageUrl,
+    };
+  }
+
+  /// Convert Map to InfoItem
+  factory InfoItem.fromMap(Map<String, dynamic> map) {
+    return InfoItem(
+      name: map['name'],
+      description: map['description'],
+      imageUrl: map['imageUrl'],
+    );
+  }
 }

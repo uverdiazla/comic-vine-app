@@ -69,6 +69,7 @@ class InfoSectionList extends StatelessWidget {
                         Text(
                           item.name,
                           style: Theme.of(context).textTheme.bodyMedium,
+                          maxLines: 1,
                         ),
                         if(item.description != null)
                           const SizedBox(height: 7.0),
@@ -78,7 +79,9 @@ class InfoSectionList extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
+                              overflow: TextOverflow.ellipsis,
                             ),
+                            maxLines: 1,
                           ),
                       ],
                     ),

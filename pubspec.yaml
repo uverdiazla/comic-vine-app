@@ -21,11 +21,14 @@ dependencies:
   http: ^1.2.2
   equatable: ^2.0.3
   xml: ^5.0.0
-
+  sqflite: ^2.0.0+4
+  path_provider: ^2.0.2
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
   build_runner: ^2.3.3
+  mockito: ^5.0.17
+  bloc_test: ^9.0.0
   flutter_test:
     sdk: flutter
   integration_test:
